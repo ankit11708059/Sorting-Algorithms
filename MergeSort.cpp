@@ -1,33 +1,56 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int main()
+void merge(int arr[],int l,int m,int r)
 {
-	int n,k=0,q;
-	cin>>n>>q;
-	string a[n],m;
+  int i=l;
+  int j=m+1;
+  int k=l;
+  int temp[1000];
+ while(i<=m && j<=r)
+ {
+     if(arr[i]<arr[j])
+     {
+         temp[k++]=arr[i++];
+     }
+     else
+     {
+         temp[k++]=arr[j++];
+     }
+ }
+  while(i<=m)
+ {
+     temp[k++]=arr[i++];
+ }
+ while(j<=r)
+ {
+     temp[k++]=arr[j++];
+ }
+ for(int i=l;i<=r;i++)
+ {
+     arr[i]=temp[i];
+ }
+}
+void mergeSort(int a[],int s,int e)
+{
+	if(s<e)
+	{
+	int mid=(s+e)/2;
+	mergeSort(a,s,mid);
+	mergeSort(a,mid+1,e);
+	merge(a,s,mid,e);
+    }
+}
+void print(int a[],int n)
+{
 	for(int i=0;i<n;i++)
 	{
-		cin>>a[i];
+		cout<<a[i]<<" ";
 	}
-	for(int i=1;i<=q;i++){
-	int x,y,z;
-	int k=0;
-	cin>>x>>y>>z;
-	if(x==1){
-	for(int i=y-1;i<=z-1;i++)
-	{
-		m=a[i];
-		if(m[0]==m[m.size()-1])
-		k++;
-	}
-    cout<<k<<endl;
 }
-else if(x==2)
+int main()
 {
-	string t=to_string(z);
-	a[y]=t;
-}
-	
-}
+	int a[]={38,27,43,3,9,82,10};
+	mergeSort(a,0,6);
+	print(a,7);
 }
